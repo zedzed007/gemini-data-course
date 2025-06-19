@@ -50,7 +50,7 @@
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">Master Data Analysis with Conversational AI</h1>
                 <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-8">Transform raw data into powerful insights using plain English. This interactive guide teaches you how to leverage Google Gemini for efficient and intuitive data analysis, focusing on core skills and effective prompting.</p>
-                <a href="#learning-hub" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Start Learning Now</a>
+                <a href="#enroll" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Access Course Now</a>
             </div>
         </section>
 
@@ -277,6 +277,21 @@
                 </div>
             </div>
         </section>
+
+        <!-- Access Course Section -->
+        <section id="enroll" class="py-16 md:py-24 bg-emerald-500 text-white text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Enter Your Email for Instant Course Access!</h2>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90">No complex sign-up. Just your email to begin your journey into conversational data analysis.</p>
+                <form id="emailAccessForm" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-xl flex flex-col gap-4">
+                    <input type="email" id="accessEmail" placeholder="Your Email Address" class="p-3 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-600 text-slate-800" required>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md shadow-md transition duration-300 transform hover:scale-105">
+                        Get Instant Access
+                    </button>
+                    <p id="accessMessage" class="mt-4 text-sm font-medium text-slate-700 hidden"></p>
+                </form>
+            </div>
+        </section>
     </main>
 
     <footer class="bg-slate-900 py-8">
@@ -390,10 +405,10 @@
                     analysisChart.destroy();
                 }
                 
-                const config = chartData[vizType];
-                analysisChart = new Chart(ctx, config);
-                promptEl.textContent = vizInfo[vizType].prompt;
-                insightEl.textContent = vizInfo[vizType].insight;
+                    const config = chartData[vizType];
+                    analysisChart = new Chart(ctx, config);
+                    promptEl.textContent = vizInfo[vizType].prompt;
+                    insightEl.textContent = vizInfo[vizType].insight;
             }
 
             vizButtons.forEach(button => {
@@ -414,7 +429,27 @@
             // Set initial active tab button style
             document.querySelector('.tab-button.active').classList.add('bg-emerald-500', 'text-white');
             document.querySelector('.tab-button.active').classList.remove('bg-slate-200', 'text-slate-700');
+
+
+            // New JavaScript for email input form submission
+            document.getElementById('emailAccessForm').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent actual form submission
+
+                const userEmail = document.getElementById('accessEmail').value;
+                const accessMessage = document.getElementById('accessMessage');
+
+                if (userEmail) {
+                    accessMessage.textContent = 'Thank you for your interest! We will send course access details to ' + userEmail + ' shortly.';
+                    accessMessage.className = 'mt-4 text-green-600 font-medium';
+                } else {
+                    accessMessage.textContent = 'Please enter a valid email address to access the course.';
+                    accessMessage.className = 'mt-4 text-red-500 font-medium';
+                }
+                accessMessage.style.display = 'block'; // Make sure the message is visible
+                this.reset(); // Clear the form
+            });
         });
     </script>
 </body>
 </html>
+
